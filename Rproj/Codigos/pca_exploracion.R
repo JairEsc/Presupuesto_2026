@@ -38,10 +38,12 @@ colnames(indicadores[,-1])[(matrix(matriz_corr |> sapply(\(z){
 ## ind_ingreso está relacionada con 
 caret::findCorrelation(x = matriz_corr, cutoff = 0.8)
 
-indicadores |> openxlsx::write.xlsx("../Datos/municipal_34_indicadores.xlsx")
+indicadores |> openxlsx::write.xlsx("../Datos/input.xlsx")
 pca_indicadores=prcomp(indicadores[,-1], scale = TRUE)
-summary(pca_indicadores)
-pca_indicadores$rotation
+summary(pca_indicadores) 
+pca_indicadores$rotation |> as.data.frame() |> 
+  dplyr::mutate(names=colnames(indicadores[,-1])) |> 
+  dplyr::relocate(names,.before = PC1)|> openxlsx::write.xlsx("../Datos/output/rotation_matrix.xlsx",asTable = T)
 
 ####Con la otra librería 
 factoextra::fviz_pca_var(pca_indicadores, col.var = "black")

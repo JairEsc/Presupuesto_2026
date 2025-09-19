@@ -1,4 +1,6 @@
 ###Hacmos el pca con todas las variables a ver cómo se ve. 
+
+
 pca_indicadores_full=prcomp(indicadores[,-1], scale = TRUE)
 summary(pca_indicadores_full)
 ###Con 9 componentes se tiene para cubrir >70%
