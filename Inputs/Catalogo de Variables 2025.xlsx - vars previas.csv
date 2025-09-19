@@ -1,0 +1,62 @@
+Tema,Variable ,Descripción,Fuente,Datos,Responsable
+Cohesion Social,GINI,Coheficiente GINI Cohesión Social, CONEVAL. Índice de Cohesión Social,si,
+Salud,Enf_int_xhab,Incidencia de enfermedades intestinales por cada 1000 habitantes,SALUD. Estadísticas de Salud. 2023,si,charlie
+Indice de Desarrollo Humano IDH,ind_ingreso,Índice de ingreso,Programa De Las Naciones Unidas Para El Desarrollo Pnud 2015 de integración al banco de datos,si,
+Marginacion ,IM_2020,"Índice de marginación, 2020","Estimaciones del CONAPO con base en el INEGI, Censo de Población y Vivienda 2020. ",si,
+Rezago ,Ind_RS_long_2020,Índice de Rezago Social Longitudinal_2020,CONEVAL.Medición de la Pobreza por Municipio 2020,,
+Medio Ambiente,A_ve_m2,Metros cuadrados de áreas verdes urbanas por habitante,SIGEH. Con información del Censo de Población y Vivienda 2020. ,no,jair
+Agua Potable y Saneamiento,mun_sin_star,Municipios o demarcaciones territoriales sin servicio  de tratamiento de  aguas residuales  ,INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2023,,
+Incidencia Delictiva,tot_viol_fam,Número de casos de violencia familiar registrados por cada mil habitantes,Secretariado Ejecutivo del Sistema Nacional de Seguridad Publica SESNSP,,
+Incidencia Delictiva,tot _homi,Número de homicidios registrados,Secretariado Ejecutivo del Sistema Nacional de Seguridad Publica SESNSP,,
+Pobreza ,PORC_C_ALIM,Porcentaje de la Población con Carencia por Acceso a la Alimentación,CONEVAL.Medición de la Pobreza por Municipio 2020,si,
+Pobreza ,PERS_CSEG_S,Número de personas con Carencia por Acceso a la Seguridad Social,INEGI. Censo de Población y Vivienda 2020,,
+Pobreza ,PERS_C_ASBV,Número de personas con Carencia por Acceso a los Servicios Básicos en la Vivienda,INEGI. Censo de Población y Vivienda 2020,si,
+Pobreza ,PERS_CSALUD,Número de personas con Carencia por Acceso a los Servicios de Salud,INEGI. Censo de Población y Vivienda 2020,,
+Pobreza ,PORC_C_CEV,Número de personas con Carencia por calidad y espacios de la vivienda,INEGI. Censo de Población y Vivienda 2020,,
+Pobreza ,PORC_POB_IILP,Porcentaje de la Población con ingreso inferior a la línea de Pobreza por Ingresos,CONEVAL.Medición de la Pobreza por Municipio 2020,si,
+Agricultura,prob_altos_cost,Número de unidades agrícolas afectadas por Altos costos de insumos y servicios,INEGI. Censo Agropecuario 2022,,
+Agricultura,prob_fert_suelo,Número de unidades agrícolas afectadas por Pérdida de fertilidad del suelo,INEGI. Censo Agropecuario 2023,,
+Indicadores del Censo de Población y Vivienda  por municipio,PCDISC_MOT,"Personas con mucha dificultad para caminar o moverse, subir o bajar.",INEGI. Censo de Población y Vivienda 2020,si,
+Educación,P15YM_AN,Personas de 15 a 130 años de edad que no saben leer y escribir.,INEGI. Censo de Población y Vivienda 2020,,
+Agua Potable y Saneamiento,porc_sin_tratar,Porcentaje de aguas residuales sin tratar por municipio,INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2023,si,charlie
+Educación,Porc_ab_msup,Porcentaje de alumnos que no terminan el nivel medio superior,"SIGEH con datos de las Estadísticas Educativas, 2023",si,charlie
+Educación,Porc_ab_sup,Porcentaje de alumnos que no terminan el nivel superior,"SIGEH con datos de las Estadísticas Educativas, 2024",,
+Educación,Porc_becas,Porcentaje de estudiantes en nivel básico y medio superior que reciben beca.,,,
+Rezago,pje_pob_15ymas_edbasinc_2020,Porcentaje de la población de 15 años y más con educación básica incompleta_2020,INEGI. Censo de Población y Vivienda 2020,si,charlie
+Rezago,Pje_pob_6a14_Noasi_esc_2020,Porcentaje de la población de 6 a 14 años que no asiste a la escuela 2020,INEGI. Censo de Población y Vivienda 2020,,
+Pobreza ,,Porcentaje de personas en condición de Pobreza,,,
+Pobreza ,PERS_PE,Porcentaje de personas en condición de Pobreza Extrema,CONEVAL.Medición de la Pobreza por Municipio 2020,,
+Economía,PIB_estatal,Porcentaje de PIB con respecto al total estatal,INEGI. Censo Económico 2023,si,
+Turismo ,,Porcentaje de PIB turístico con respecto al total estatal ,DATATUR 2022,,
+"Indicadores del Censo de Población y Vivienda  por municipio, 2020",PE_INAC,"Porcentaje de población de 12 años y más pensionadas o jubiladas, estudiantes, dedicadas a los quehaceres del hogar; o que tienen alguna limitación física o mental permanente que les impide trabajar. ",INEGI. Censo de Población y Vivienda 2020,si,
+Economía,Pob_des,Porcentaje de población desocupada ,INEGI. Censo de Población y Vivienda 2020,si,evelin
+Residuos sólidos,rsu_sin_recolec,Porcentaje de residuos sólidos urbanos sin recolectar,INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2023,si,luz
+Agricultura,Sup_agri_noriego,Porcentaje de superficie agrícola no incorporada al riego,,,
+Agricultura,sup_sin_total,Porcentaje de superficie agrícola siniestrada a nivel municipal,SIAP. Servicio Agroalimentario y Pesquero 2024,si,Bri
+Agricultura,u_panag,Porcentaje de Unidades de producción agropecuaria que no reciben apoyo de algun programa de gobierno,INEGI. Censo Agropecuario 2022,si,Dianis
+Marginación,VHAC,Porcentaje de viviendas particulares con hacinamiento,INEGI. Censo de Población y Vivienda 2020,,
+Rezago,Pje_viv_noexc_2020,Porcentaje de viviendas que no disponen de excusado o sanitario_2020,CONEVAL.Medición de la Pobreza por Municipio 2020,,
+Conectividad,Pje_vivnodinter_2020,Porcentaje de viviendas que no disponen de internet_2020,CONEVAL.Medición de la Pobreza por Municipio 2020,si,charlie
+Economía,tasa_unidades_eco,tasa de crecimiento de las unidades económicas en los ultimos 15 años ,INEGI. Censo Económico 2023,i,eve
+Medio Ambiente,,Tasa de dismunición de hectareas afectadas por incendios forestales ,CONAFOR (historico),,
+Incidencia Delictiva,tot_del_fc,Total de delitos del fuero comun,Secretariado Ejecutivo del Sistema Nacional de Seguridad Publica SESNSP,si,charlie
+"Indicadores del Censo de Población y Vivienda  por municipio, 2020",PSINDER,Total de personas que no tienen derecho a recibir servicios médicos en ninguna institución pública o privada.,INEGI. Censo de Población y Vivienda 2020,si,charlie
+Planeacion y Ordenamiento Territorial,T_res_terr_cartog,Total de reservas territoriales en las instituciones con actividad territorial según la existencia de su registro o relación y representación cartográfica en algún instrumento de planeación vigente ,INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2021,,
+Indicadores del Censo de Población y Vivienda  por municipio,VPH_PISOTI,Viviendas particulares habitadas con piso de tierra. ,INEGI. Censo de Población y Vivienda 2020,,
+Indicadores del Censo de Población y Vivienda  por municipio,VPH_NODREN,Viviendas particulares habitadas que no tienen drenaje. ,INEGI. Censo de Población y Vivienda 2020,si,charlie
+Rezago,p_sind,porcentaje de población sin derechohabiencia,INEGI. Censo de Población y Vivienda 2020,si,charlie
+Indicadores del Censo de Población y Vivienda  por municipio,,Grado promedio de escolaridad,INEGI. Censo de Población y Vivienda 2020,,
+Economía,,Porcentaje de remesas con respecto al total estatal ,Banco de México 2024,,
+Seguridad Pública,Personal_seguirdad,Personal destinado a funcones de seguridad pública muncipal,INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2014,si,charlie
+Inventario Emisiones Estado de Hidalgo,ec_co2e,Toneladas de emisiones de CO2e,INVENTARIO ESTATAL DE EMISIONES DE GASES Y COMPUESTOS DE EFECTO INVERNADERO DE HIDALGO,no,Luz
+Economía,uem50,Unidades económicas de manufactura de más de 50 personas,Obtener (DIana),no,Diana
+,carretera_km,Kilómetros de carretera / total del territorio,Obtener (Alfred) Jair. Alfred está de vacaciones.,si,
+,TOT_INV_CARR,Inversión total en carreteras y vialidades en 3 años,SIPDUS,no,itz
+,TOT_INV_AGUA,Inversión total en obra hídrica y saneamiento en 3 años,SIPDUS,no,itz
+,TOT_INV_ESPE,inversión total en espacio público y educativo en 3 años,SIPDUS,no,itz
+Control Interno y Anticorrupcion,DRIOPAP_T,Total de denuncias recibidas por incumplimiento de las obligaciones del personal adscrito a las instituciones de la Administración Pública,INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2021,si,Diana
+Servicios Publicos,t_lamp_lumi_alumb_pub,Total de lámparas y/o luminarias del servicio de alumbrado público,INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2021,si,Diana
+Seguridad Pública,p_disp_seg,"Puestas a disposición realizadas por el personal de la institución encargada de la función de seguridad pública, por municipio o demarcación territorial según tipo",INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2022,no,Luz
+Seguridad Pública,pres_eje_seg_mun,"Presupuesto ejercido por la institución encargada de la función de seguridad pública, por municipio o demarcación territorial",INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2023,no,Luz
+Educación,pob_ben_beca,Población beneficiada con Becas,,si,Luz
+Economía,tien_lico,tiendas liconsa,INEGI. Censo Nacional de Gobiernos Municipales y Demarcaciones de la Ciudad de México 2023,,

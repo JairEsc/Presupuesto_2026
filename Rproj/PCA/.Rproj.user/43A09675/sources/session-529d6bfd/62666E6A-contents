@@ -1,0 +1,131 @@
+---
+title: "PCA indicadores relacionados a problemas municipales"
+author: "JairES"
+editor: visual
+format: 
+  html:
+    toc: true
+    page-layout: full
+lightbox: true
+---
+
+## Reporte PCA con todas las variables
+
+### 
+
+#### Exploramos las correlaciones entre las variables utilizadas
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
+source("../Codigos/pre-procesamiento.R")
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 16
+#| fig-height: 7
+library(ggcorrplot)
+ggcorrplot::ggcorrplot(corr = round(cor(indicadores[,-1]),2),type = "lower",show.diag = F,lab = T,lab_size = 1.4)
+```
+
+#### Análisis de Componente Principales
+
+```{r}
+pca_indicadores_full=prcomp(indicadores[,-1], scale = TRUE)
+
+```
+
+Generamos una gráfica tipo "elbow" para la visualización de la explicación de la varianza por componente.
+
+```{r}
+var_explicada <- pca_indicadores_full$sdev^2
+# Calculamos el porcentaje de varianza
+proporcion_varianza <- var_explicada / sum(var_explicada)
+
+# Creamos el data frame para la visualización
+data_varianza <- data.frame(
+  PC = 1:length(proporcion_varianza),
+  Varianza = proporcion_varianza
+)
+
+library(ggplot2)
+ggplot(data_varianza, aes(x = PC, y = Varianza)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = paste0(round(Varianza * 100), "%")),
+            vjust = -0.5, size = 3) +
+  labs(x = "Componente Principal", y = "Proporción de Varianza Explicada") +
+  theme_minimal() +
+  ggtitle("Varianza Explicada por Componente Principal")
+```
+
+De esta gráfica nos podemos interesar en los primeros 2 componentes, que se detallan a continuación.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| layout-ncol: 2
+#| fig-cap: "Izquierda: Todas las variables. Derecha: Top 10 variables con mayor contribución."
+library(factoextra)
+# Gráfico 1: Todas las variables
+factoextra::fviz_pca_var(pca_indicadores_full,
+                         axes = 1:2,
+                         fill.var = "contrib",
+                         alpha.var = "contrib",
+                         col.var = "contrib",
+                         gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+                         repel = TRUE)
+
+# Gráfico 2: Solo las 10 variables principales
+factoextra::fviz_pca_var(pca_indicadores_full,
+                         axes = 1:2,
+                         fill.var = "contrib",
+                         alpha.var = "contrib",
+                         col.var = "contrib",
+                         gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+                         repel = TRUE,
+                         select.var = list(contrib = 10))
+```
+
+##### Composición del Componente 1
+
+Tomando los primeros 5 pesos según su distribución en valor absoluto, podemos notar que las variables que más aportan al primer componente son:
+
+-   Índice de Ingresos
+
+-   Índice de marginación
+
+-   Porcentaje de viviendas que no disponen de internet
+
+-   Porcentaje de la población de 15 años y más con educación básica incompleta
+
+-   Porcentaje de la Población con ingreso inferior a la línea de Pobreza por Ingresos
+
+De lo anterior se puede renombrar al primer componente como una medida de: Pobreza por ingresos.
+
+##### Composición del Componente 2
+
+Tomando los primeros 8 pesos según su distribución en valor absoluto, podemos notar que las variables que más aportan al primer componente son:
+
+-   Porcentaje de la Población con Carencia por Acceso a la Alimentación
+
+-   Personal destinado a funciones de seguridad pública muncipal
+
+-   Personas con mucha dificultad para caminar o moverse, subir o bajar.
+
+-   Total de lámparas y/o luminarias del servicio de alumbrado público.
+
+-   Inversión total en carreteras y vialidades en 3 años
+
+-   Porcentaje de población de 12 años y más pensionadas o jubiladas, estudiantes, dedicadas a los quehaceres del hogar; o que tienen alguna limitación física o mental permanente que les impide trabajar.
+
+-   Número de personas con Carencia por Acceso a los Servicios Básicos en la Vivienda
+
+-   Incidencia de enfermedades intestinales por cada 1000 habitantes
+
+De lo anterior se puede renombrar al segundo componente como una medida de: Seguridad y carencia alimentaria.
