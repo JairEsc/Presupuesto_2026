@@ -50,7 +50,7 @@ Se nota altas correlaciones en grupos de variables que pueden o no compartir tem
 
 -   *Índice de ingresos*,
 
--   *Porcentaje de la Población con ingreso inferior a la línea de Pobreza por Ingresos*	
+-   *Porcentaje de la Población con ingreso inferior a la línea de Pobreza por Ingresos*
 
 -   Índice de marginación
 
@@ -60,26 +60,27 @@ Se nota altas correlaciones en grupos de variables que pueden o no compartir tem
 
 Dado que todas ellas están involucradas en el cálculo de la marginación, la consideramos una medida resumen y la conservamos.
 
-Otro ejemplo de grupos de variables que comparten alta correlación se da en \
-#población desocupada. Carpetas puestas a disposición de fiscalía, y pib estatal. #Por otro lado, existe correlación alta entre delitos del fuero comun carpetas ... #Eliminamos la de carpetas.
+Otro ejemplo de grupos de variables que comparten alta correlación se da en
 
--   Porcentaje de población desocupada	
+-   Porcentaje de población desocupada
 
--   Puestas a disposición realizadas por el personal de la institución encargada de la función de seguridad pública, por municipio o demarcación territorial según tipo	
+-   Puestas a disposición realizadas por el personal de la institución encargada de la función de seguridad pública, por municipio o demarcación territorial según tipo
 
 -   Porcentaje de PIB con respecto al total estatal
 
--   Total de delitos del fuero comun		
+-   Total de delitos del fuero comun
 
 En este caso, la contribución al PIB estatal y población desocupada están relacionadas al tema de Economía y se calcula una correlación de 0.82, por lo que se conserva *Porcentaje de PIB con respecto al total estatal.*
 
-Por otro lado, la variable *Puestas a disposición realizadas por el personal de la institución encargada de la función de seguridad pública, por municipio o demarcación territorial según tipo*	está correlacionada al número de delitos, es decir, con *Total de delitos del fuero comun.* En este caso, conservamos la segunda por su más sencilla interpretación.
+Por otro lado, la variable *Puestas a disposición realizadas por el personal de la institución encargada de la función de seguridad pública, por municipio o demarcación territorial según tipo* está correlacionada al número de delitos, es decir, con *Total de delitos del fuero comun.* En este caso, conservamos la segunda por su más sencilla interpretación.
 
 ## Análisis de Componente Principales de variables conservadas
 
 ```{r}
 #| echo: false
-pca_indicadores_post=prcomp(indicadores[,-1], scale = TRUE)
+
+source("../../Rproj/Codigos/post_seleccion_vars.R")
+pca_indicadores_post=prcomp(indicadores[,-1], scale = TRUE,retx = T)
 
 ```
 
@@ -121,7 +122,7 @@ Para una exploración visual de los principales (2) componentes, podemos conside
 #| fig-cap: "Contribución de las variables utilizadas para la composición de los primeros dos componentes"
 library(factoextra)
 # Gráfico 1: Todas las variables
-factoextra::fviz_pca_var(pca_indicadores_full,
+factoextra::fviz_pca_var(pca_indicadores_post,
                          axes = 1:2,
                          fill.var = "contrib",
                          alpha.var = "contrib",
@@ -139,7 +140,7 @@ Naturalmente, la visualización de +30 variables puede complicarse al tratar de 
 #| layout-ncol: 2
 #| fig-cap: "Principales diez componentes en la composición de los componentes 1-4"
 # Gráfico 2: Solo las 10 variables principales
-factoextra::fviz_pca_var(pca_indicadores_full,
+factoextra::fviz_pca_var(pca_indicadores_post,
                          axes = 1:2,
                          fill.var = "contrib",
                          alpha.var = "contrib",
@@ -148,7 +149,7 @@ factoextra::fviz_pca_var(pca_indicadores_full,
                          repel = TRUE,
                          select.var = list(contrib = 10))
 # Gráfico 2: Solo las 10 variables principales
-factoextra::fviz_pca_var(pca_indicadores_full,
+factoextra::fviz_pca_var(pca_indicadores_post,
                          axes = 3:4,
                          fill.var = "contrib",
                          alpha.var = "contrib",
@@ -159,40 +160,98 @@ factoextra::fviz_pca_var(pca_indicadores_full,
 
 ```
 
-##### Composición del Componente 1
+#### Composición del Componente 1
 
-Tomando los primeros 5 pesos según su distribución en valor absoluto, podemos notar que las variables que más aportan al primer componente son:
+Tomando los primeros 2 pesos según su distribución en valor absoluto, podemos notar que las variables que más aportan al primer componente son:
 
--   Índice de Ingresos
+-   Índice de marginación (+)
 
--   Índice de marginación
+-   Tiendas Liconsa (-)
 
--   Porcentaje de viviendas que no disponen de internet
+-   Viviendas particulares habitadas que no tienen drenaje. (-)
 
--   Porcentaje de la población de 15 años y más con educación básica incompleta
+-   Total de delitos del fuero común (+)
 
--   Porcentaje de la Población con ingreso inferior a la línea de Pobreza por Ingresos
+-   Porcentaje de población de 12 años y más pensionadas o jubiladas, estudiantes, dedicadas a los quehaceres del hogar; o que tienen alguna limitación física o mental permanente que les impide trabajar. (+)
 
-De lo anterior se puede renombrar al primer componente como una medida de: Pobreza por ingresos.
+-   Porcentaje de personas sin derecho a servicios de salud. (+)
 
-##### Composición del Componente 2
+-   Porcentaje de personas con Carencia por Acceso a los Servicios Básicos de la Vivienda. (-)
 
-Tomando los primeros 8 pesos según su distribución en valor absoluto, podemos notar que las variables que más aportan al primer componente son:
+-   Personas con mucha dificultad para caminar o moverse, subir o bajar. (-)
+
+De lo anterior se puede renombrar al primer componente como una medida de *Marginación.*
+
+#### Composición del Componente 2
+
+Tomando los primeros 7 pesos según su distribución en valor absoluto, podemos notar que las variables que más aportan al primer componente son:
 
 -   Porcentaje de la Población con Carencia por Acceso a la Alimentación
 
 -   Personal destinado a funciones de seguridad pública muncipal
 
--   Personas con mucha dificultad para caminar o moverse, subir o bajar.
-
 -   Total de lámparas y/o luminarias del servicio de alumbrado público.
-
--   Inversión total en carreteras y vialidades en 3 años
-
--   Porcentaje de población de 12 años y más pensionadas o jubiladas, estudiantes, dedicadas a los quehaceres del hogar; o que tienen alguna limitación física o mental permanente que les impide trabajar.
 
 -   Número de personas con Carencia por Acceso a los Servicios Básicos en la Vivienda
 
+-   Personas con mucha dificultad para caminar o moverse, subir o bajar.
+
 -   Incidencia de enfermedades intestinales por cada 1000 habitantes
 
-De lo anterior se puede renombrar al segundo componente como una medida de: Seguridad y carencia alimentaria.
+-   Inversión total en carreteras y vialidades en 3 años
+
+De lo anterior se puede renombrar al segundo componente como una medida de: Seguridad y vulnerabilidad.
+
+#### Composición del Componente 3
+
+Tomando los primeros 7 pesos según su distribución en valor absoluto, podemos notar que las variables que más aportan al primer componente son:
+
+-   Porcentaje de PIB con respecto al total estatal
+
+-   Porcentaje de superficie agrícola siniestrada a nivel municipal
+
+-   Total de lámparas y/o luminarias del servicio de alumbrado público.
+
+-   Coheficiente GINI Cohesión Social
+
+-   inversión total en espacio público y educativo en 3 años
+
+-   Total de delitos del fuero comun
+
+-   Porcentaje de aguas residuales sin tratar por municipio
+
+De lo anterior se puede renombrar al tercer componente como una medida de Desigualdad.
+
+#### Composición del Componente 4
+
+Tomando los primeros 4 pesos según su distribución en valor absoluto, podemos notar que las variables que más aportan al primer componente son:
+
+-   Kilómetros de carretera / total del territorio
+
+-   Unidades económicas de manufactura de más de 50 personas
+
+-   Metros cuadrados de áreas verdes urbanas por habitante
+
+-   tasa de crecimiento de las unidades económicas en los ultimos 15 años
+
+De lo anterior se puede renombrar al cuarto componente como una medida de Infraestructura.
+
+## Proyección sobre componentes a nivel municipal.
+
+Se calcula la proyección de los datos sobre los principales 4 componentes, obteniendo una observación de cada municipio en las medidas descritas.
+
+```{r}
+#| echo: false
+
+proyeccion=pca_indicadores_post$x |> as.data.frame() |> 
+  dplyr::mutate(NOM_MUN=indicadores$NOM_MUN) |> 
+  dplyr::relocate(NOM_MUN,.before = PC1) |> 
+  dplyr::select(NOM_MUN:PC4) |> 
+  dplyr::rename('Marginación'=PC1) |> 
+  dplyr::rename('Seguridad y vulnerabilidad'=PC2) |> 
+  dplyr::rename('Desigualdad'=PC3) |> 
+  dplyr::rename('Infraestructura'=PC4) 
+datatable(proyeccion)
+```
+
+Es importante mencionar que los pesos de los componentes tienen dirección (positiva o negativa) dependiendo de su signo, de manera que para establecer un orden entre municipios o entre temas para un mismo municipio, se sugiere medir la distancia a la media de otros municipios y el valor del indicador definido como medida a partir de los componentes.
