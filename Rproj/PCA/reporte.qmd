@@ -9,11 +9,9 @@ format:
 lightbox: true
 ---
 
-## Reporte PCA con todas las variables
+# Reporte PCA
 
-### 
-
-#### Exploramos las correlaciones entre las variables utilizadas
+## Selección de variables
 
 ```{r}
 #| echo: false
@@ -23,6 +21,21 @@ lightbox: true
 source("../Codigos/pre-procesamiento.R")
 ```
 
+De una selección de más de 200 variables identificadas por su relación con problemáticas sociales y economómicas a nivel municipal, se hace un corte a 37 variables que se describen en la siguiente tabla.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(DT)
+DT::datatable(diccionario_variables)
+```
+
+De éstas variables preliminares, se considerarán aquellas que conserven una correlación a pares no mayor a 0.8. Para ello, calculamos la matriz de correlaciones que se visualiza en la siguiente gráfica (da click para ver en grande).
+
+### Exploramos las correlaciones entre las variables consideradas
+
 ```{r}
 #| echo: false
 #| message: false
@@ -30,20 +43,51 @@ source("../Codigos/pre-procesamiento.R")
 #| fig-width: 16
 #| fig-height: 7
 library(ggcorrplot)
-ggcorrplot::ggcorrplot(corr = round(cor(indicadores[,-1]),2),type = "lower",show.diag = F,lab = T,lab_size = 1.4)
+ggcorrplot::ggcorrplot(corr = round(cor(indicadores[,-1]),2),type = "lower",show.diag = F,lab = T,lab_size = 1.4,title = "Correlación. Da click para ver en grande")
 ```
 
-#### Análisis de Componente Principales
+Se nota altas correlaciones en grupos de variables que pueden o no compartir temas. Por ejemplo, los grupos de variables dados por
+
+-   *Índice de ingresos*,
+
+-   *Porcentaje de la Población con ingreso inferior a la línea de Pobreza por Ingresos*	
+
+-   Índice de marginación
+
+-   Porcentaje de la población de 15 años y más con educación básica incompleta
+
+-   Porcentaje de viviendas que no disponen de internet
+
+Dado que todas ellas están involucradas en el cálculo de la marginación, la consideramos una medida resumen y la conservamos.
+
+Otro ejemplo de grupos de variables que comparten alta correlación se da en \
+#población desocupada. Carpetas puestas a disposición de fiscalía, y pib estatal. #Por otro lado, existe correlación alta entre delitos del fuero comun carpetas ... #Eliminamos la de carpetas.
+
+-   Porcentaje de población desocupada	
+
+-   Puestas a disposición realizadas por el personal de la institución encargada de la función de seguridad pública, por municipio o demarcación territorial según tipo	
+
+-   Porcentaje de PIB con respecto al total estatal
+
+-   Total de delitos del fuero comun		
+
+En este caso, la contribución al PIB estatal y población desocupada están relacionadas al tema de Economía y se calcula una correlación de 0.82, por lo que se conserva *Porcentaje de PIB con respecto al total estatal.*
+
+Por otro lado, la variable *Puestas a disposición realizadas por el personal de la institución encargada de la función de seguridad pública, por municipio o demarcación territorial según tipo*	está correlacionada al número de delitos, es decir, con *Total de delitos del fuero comun.* En este caso, conservamos la segunda por su más sencilla interpretación.
+
+## Análisis de Componente Principales de variables conservadas
 
 ```{r}
-pca_indicadores_full=prcomp(indicadores[,-1], scale = TRUE)
+#| echo: false
+pca_indicadores_post=prcomp(indicadores[,-1], scale = TRUE)
 
 ```
 
 Generamos una gráfica tipo "elbow" para la visualización de la explicación de la varianza por componente.
 
 ```{r}
-var_explicada <- pca_indicadores_full$sdev^2
+#| echo: false
+var_explicada <- pca_indicadores_post$sdev^2
 # Calculamos el porcentaje de varianza
 proporcion_varianza <- var_explicada / sum(var_explicada)
 
@@ -55,7 +99,7 @@ data_varianza <- data.frame(
 
 library(ggplot2)
 ggplot(data_varianza, aes(x = PC, y = Varianza)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_bar(stat = "identity", fill = "#F5DABC") +
   geom_text(aes(label = paste0(round(Varianza * 100), "%")),
             vjust = -0.5, size = 3) +
   labs(x = "Componente Principal", y = "Proporción de Varianza Explicada") +
@@ -63,14 +107,18 @@ ggplot(data_varianza, aes(x = PC, y = Varianza)) +
   ggtitle("Varianza Explicada por Componente Principal")
 ```
 
-De esta gráfica nos podemos interesar en los primeros 2 componentes, que se detallan a continuación.
+De esta gráfica nos podemos interesar en los primeros 4 componentes que aportan a más de la mitad de la varianza explicada y que se detallan a continuación.
+
+### Contribuciones a los principales componentes.
+
+Para una exploración visual de los principales (2) componentes, podemos considerar una gráfica de las contribuciones a la composición de éstos
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
 #| layout-ncol: 2
-#| fig-cap: "Izquierda: Todas las variables. Derecha: Top 10 variables con mayor contribución."
+#| fig-cap: "Contribución de las variables utilizadas para la composición de los primeros dos componentes"
 library(factoextra)
 # Gráfico 1: Todas las variables
 factoextra::fviz_pca_var(pca_indicadores_full,
@@ -81,6 +129,15 @@ factoextra::fviz_pca_var(pca_indicadores_full,
                          gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
                          repel = TRUE)
 
+
+```
+
+Naturalmente, la visualización de +30 variables puede complicarse al tratar de reducirla a dos componentes, por lo que se consideran también los componentes 3 y 4, además de aplicar un filtro a las principales 10 contribuciones de cada par de componentes.
+
+```{r}
+#| echo: false
+#| layout-ncol: 2
+#| fig-cap: "Principales diez componentes en la composición de los componentes 1-4"
 # Gráfico 2: Solo las 10 variables principales
 factoextra::fviz_pca_var(pca_indicadores_full,
                          axes = 1:2,
@@ -90,6 +147,16 @@ factoextra::fviz_pca_var(pca_indicadores_full,
                          gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
                          repel = TRUE,
                          select.var = list(contrib = 10))
+# Gráfico 2: Solo las 10 variables principales
+factoextra::fviz_pca_var(pca_indicadores_full,
+                         axes = 3:4,
+                         fill.var = "contrib",
+                         alpha.var = "contrib",
+                         col.var = "contrib",
+                         gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+                         repel = TRUE,
+                         select.var = list(contrib = 10))
+
 ```
 
 ##### Composición del Componente 1

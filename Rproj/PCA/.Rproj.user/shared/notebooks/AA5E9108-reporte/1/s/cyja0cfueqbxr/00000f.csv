@@ -1,7 +1,0 @@
-"0","#| echo: false"
-"0","#| message: false"
-"0","#| warning: false"
-"0","#| fig-width: 16"
-"0","#| fig-height: 7"
-"0","library(ggcorrplot)"
-"0","ggcorrplot::ggcorrplot(corr = round(cor(indicadores[,-1]),2),type = ""lower"",show.diag = F,lab = T,lab_size = 2.2)"
