@@ -57,7 +57,27 @@
 # 
 # DBI::dbDisconnect(buig)
 
+"../../Inputs/base para acp.xlsx" |> openxlsx::read.xlsx()->indicadores
+indicadores=indicadores |>
+  dplyr::mutate(dplyr::across(GINI:pres_eje_seg_mun, ~tidyr::replace_na(., 0)))
+# #"../Datos/input.xlsx" |> openxlsx::read.xlsx()->indicadores
+# #source("../../../../Reutilizables/Postgres_BUIG/conexion_buig.R")
+# viviendas_scince_2020municipal=st_read(buig,Lista_BUIG[[313]])
+# poblacion_scince_2020municipal=st_read(buig,Lista_BUIG[[230]])
+# 
+# poblacion_scince_2020municipal=poblacion_scince_2020municipal |>
+#   dplyr::select(cve_mun,nomgeo,pob1) |> st_drop_geometry()
+# viviendas_scince_2020municipal=viviendas_scince_2020municipal |>
+#   dplyr::select(cve_mun,nomgeo,viv2) |> st_drop_geometry()
+# 
+# indicadores=indicadores |>
+#   merge(y=poblacion_scince_2020municipal |>
+#           dplyr::select(nomgeo,pob1),by.x='NOM_MUN',by.y='nomgeo',all.x=T) |>
+#   merge(y=viviendas_scince_2020municipal|>
+#           dplyr::select(nomgeo,viv2),by.x='NOM_MUN',by.y='nomgeo')
+# 
+# 
 
-"../Datos/input.xlsx" |> openxlsx::read.xlsx()->indicadores
 "../../Inputs/Diccionario.xlsx" |> openxlsx::read.xlsx()->diccionario_variables
 diccionario_variables$Tema[diccionario_variables$variables!='NOM_MUN'&(diccionario_variables$Tema |> is.na())]='Infraestructura'
+diccionario_variables[nrow(diccionario_variables)+1,]=c(	'DRIOPAP_T','Total de denuncias recibidas por incumplimiento de las obligaciones del personal adscrito a las instituciones de la Administración Pública	INEGI','Control Interno y Anticorrupcion')

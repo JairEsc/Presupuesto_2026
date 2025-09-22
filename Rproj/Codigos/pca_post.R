@@ -1,3 +1,5 @@
+source("../Codigos/pre-procesamiento.R")
+source("../Codigos/post_seleccion_vars.R")
 ###Hacmos el pca con las variables seleccionadas
 
 pca_indicadores_post=prcomp(indicadores[,-1], scale = TRUE,retx = T)
